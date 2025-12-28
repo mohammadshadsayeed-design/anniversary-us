@@ -1,0 +1,127 @@
+
+body { background: black !important; color: white !important; }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: white;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+/* TEXT */
+h1 { margin-bottom: 10px; }
+p { margin-bottom: 20px; }
+
+/* IMAGES */
+.photo {
+  width: 260px;
+  max-width: 90%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;
+  margin: 15px auto;
+  display: block;
+
+  box-shadow:
+    0 0 15px rgba(0, 200, 255, 0.6),
+    0 0 40px rgba(0, 200, 255, 0.8);
+}
+
+.song-cover {
+  box-shadow:
+    0 0 25px rgba(0, 220, 255, 1),
+    0 0 80px rgba(0, 220, 255, 1);
+}
+
+/* ARROWS */
+.arrow {
+  position: fixed;
+  top: 50%;
+  font-size: 40px;
+  color: #b3f2ff;
+  text-decoration: none;
+  text-shadow: 0 0 15px #00ccff;
+}
+
+.arrow.left { left: 20px; }
+.arrow.right { right: 20px; }
+
+/* SONG PAGE BLUR */
+.song .blur-bg {
+  position: fixed;
+  inset: 0;
+  background: url("../Images/songcover.jpg") center / cover no-repeat;
+  filter: blur(20px) brightness(0.5);
+  z-index: -1;
+}
+
+/* LYRICS */
+.lyrics p { opacity: 0.4; margin: 8px 0; }
+.lyrics p.active { opacity: 1; text-shadow: 0 0 12px #00ccff; }
+
+/* MESSAGE PAGE */
+.message-page {
+  background: radial-gradient(circle at top, #001f3f, #000);
+  overflow-y: auto;
+  padding-bottom: 60px;
+}
+
+.message-container { max-width: 700px; margin: auto; padding: 40px 20px; }
+
+.message-photo { width: 200px; margin-bottom: 30px; }
+
+.typewriter p {
+  font-size: 1.15em;
+  line-height: 1.7;
+  white-space: pre-line;
+  text-shadow: 0 0 8px rgba(0, 200, 255, 0.6);
+}
+
+.fade-in {
+  animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* HEARTS */
+#hearts { position: fixed; inset: 0; pointer-events: none; }
+
+.heart {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #00ccff;
+  transform: rotate(45deg);
+  animation: float 5s linear forwards;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #00ccff;
+  border-radius: 50%;
+}
+
+.heart::before { top: -7px; }
+.heart::after { left: -7px; }
+
+@keyframes float {
+  from { bottom: 0; opacity: 1; }
+  to { bottom: 100vh; opacity: 0; }
+}

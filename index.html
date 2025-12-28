@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Anniversary Site</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html, body{height:100%;font-family:Arial,sans-serif;background:#000;color:white;overflow:hidden}
+body{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:20px;}
+h1{margin-bottom:10px}
+p{margin-bottom:20px;line-height:1.6}
+.photo{width:90%;max-width:300px;height:auto;border-radius:20px;margin:15px auto;display:block;box-shadow:0 0 15px rgba(0,200,255,.6),0 0 40px rgba(0,200,255,.8)}
+.song-cover{box-shadow:0 0 25px rgba(0,220,255,1),0 0 80px rgba(0,220,255,1)}
+.arrow{position:fixed;top:50%;font-size:40px;color:#b3f2ff;text-decoration:none;text-shadow:0 0 15px #00ccff;cursor:pointer;z-index:10}
+.arrow.left{left:20px}.arrow.right{right:20px}
+
+/* Pages */
+.page{display:none;flex-direction:column;align-items:center;justify-content:flex-start;height:100%;width:100%;overflow-y:auto;padding-bottom:40px}
+.page.active{display:flex}
+
+/* Song Page Blur */
+.song .blur-bg{position:fixed;inset:0;background:#000 url('https://via.placeholder.com/600x400') center/cover no-repeat;filter:blur(20px) brightness(0.5);z-index:-1}
+
+/* Lyrics */
+.lyrics p{opacity:.4;margin:8px 0;text-align:center}
+.lyrics p.active{opacity:1;text-shadow:0 0 12px #00ccff}
+
+/* Heart animation */
+#hearts{position:fixed;inset:0;pointer-events:none}
+.heart{position:absolute;width:15px;height:15px;background:#00ccff;transform:rotate(45deg);animation:float 5s linear forwards}
+.heart::before,.heart::after{content:"";position:absolute;width:15px;height:15px;background:#00ccff;border-radius:50%}
+.heart::before{top:-7px}.heart::after{left:-7px}
+@keyframes float{from{bottom:0;opacity:1}to{bottom:100vh;opacity:0}}
+
+/* Message Page */
+.message-container{max-width:700px;margin:auto;padding:40px 20px}
+.message-photo{width:90%;max-width:200px;margin-bottom:30px}
+.typewriter p{font-size:1.15em;line-height:1.7;white-space:pre-line;text-shadow:0 0 8px rgba(0,200,255,.6)}
+.fade-in{animation:fadeIn 2s ease forwards}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- Hearts -->
+<div id="hearts"></div>
+
+<!-- Home Page -->
+<div class="page active" id="home">
+<h1>My Love 💙</h1>
+<p>YOU MADE MY LIFE WORTH ON<b> 28DEC2024</b></p>
+<img src="images/her2.jpg"photo">
+<div class="arrow right" onclick="showPage('memories')">➡</div>
+</div>
+
+<!-- Memories Page -->
+<div class="page" id="memories">
+<h1>MY BABY 💫</h1>
+<img src="images/childhood.jpg" class="photo">
+<img src="images/her1.jpg class="photo">
+<img src="images/us.png" class="photo">
+<img src="images/her3.jpg" class="photo">
+<div class="arrow left" onclick="showPage('home')">⬅</div>
+<div class="arrow right" onclick="showPage('song')">➡</div>
+</div>
+
+<!-- Song Page -->
+<div class="page song" id="song">
+<div class="blur-bg"></div>
+<h1>Our Song 💙</h1>
+<img src="images/songcover.jpg" class="photo song-cover">
+<audio id="songAudio" controls autoplay>
+<source src="music/itna na mujhse.mp3" type="audio/mp3">
+</audio>
+<div class="lyrics">
+<p class="active"></p>
+</div>
+<div class="arrow left" onclick="showPage('memories')">⬅</div>
+<div class="arrow right" onclick="showPage('message')">➡</div>
+</div>
+
+<!-- Message Page -->
+<div class="page message-page" id="message">
+<div class="message-container">
+<img src="images/us.png" class="photo message-photo">
+<h1 class="fade-in">Hello bby 💙</h1>
+<div class="typewriter">
+<p>
+Happy 1 year anniversary my loveeeeee 💕<br><br>
+I love you so muchhhhh bacchu…<br><br>
+Woahhh… ek saal ho gaya humare saath 🥺<br>
+We fought, we broke up, but hum aaj bhi saath hain.<br><br>
+I want us like this for whole life. Please stay with me forever…<br>
+I love you so much, Bhumuuuu 💙<br><br>
+I want us to marry, have little cute babies 👶, and a home jise hum "apna ghar" kahen.<br><br>
+Bas tumhara saath chahiye hamesha. 💙
+</p>
+</div>
+</div>
+<div class="arrow left" onclick="showPage('song')">⬅</div>
+</div>
+
+<script>
+// Heart animation
+const heartBox=document.getElementById("hearts");
+if(heartBox){setInterval(()=>{const h=document.createElement("div");h.className="heart";h.style.left=Math.random()*100+"vw";heartBox.appendChild(h);setTimeout(()=>h.remove(),5000)},400)}
+
+// Page navigation
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  // Pause song if leaving song page
+  const song=document.getElementById('songAudio');
+  if(song && id!=='song'){song.pause()}else if(song && id==='song'){song.play()}
+}
+</script>
+
+</body>
+</html>
